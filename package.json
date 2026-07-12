@@ -1,0 +1,18 @@
+{
+  "name": "mediasset-flow",
+  "version": "1.0.0",
+  "description": "Hospital-themed AssetFlow starter for the Odoo hackathon.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": [
+    "assetflow",
+    "odoo",
+    "hackathon",
+    "asset-management"
+  ],
+  "author": "",
+  "license": "MIT"
+}
