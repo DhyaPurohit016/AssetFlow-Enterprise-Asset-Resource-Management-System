@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from "recharts";
 import {
   Boxes, UserCheck, ArrowLeftRight, Clock, Wrench, PlusCircle, CalendarPlus,
 } from "lucide-react";
@@ -20,6 +20,14 @@ export default function Dashboard() {
   }, []);
 
   const kpis = data?.kpis || {};
+  const categoryData = data?.chart?.byCategory || [];
+  const totalCategoryAssets = categoryData.reduce((sum, item) => sum + (item.count || 0), 0);
+  const topCategory = categoryData.length
+    ? [...categoryData].sort((a, b) => b.count - a.count)[0].name
+    : "—";
+  const averageAssets = categoryData.length
+    ? Math.round(totalCategoryAssets / categoryData.length)
+    : 0;
 
   return (
     <div className="space-y-6">
@@ -57,24 +65,69 @@ export default function Dashboard() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Chart */}
         <div className="lg:col-span-2 card p-5">
-          <h3 className="font-display font-semibold text-ink-50 mb-4">Assets by Category</h3>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <div>
+              <h3 className="font-display font-semibold text-ink-50">Assets by Category</h3>
+              <p className="text-sm text-ink-400 max-w-2xl">
+                Category trends show how inventory is distributed across your asset portfolio. Use this line view to identify growth, gaps, and the categories with the highest deployment.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-3 w-full sm:w-auto">
+              <div className="rounded-3xl border border-surface-700 bg-surface-900 p-3 text-sm text-ink-300">
+                <p className="text-ink-50 font-semibold">Total assets</p>
+                <p className="mt-1 text-2xl text-sage-300">{loading ? "—" : totalCategoryAssets}</p>
+              </div>
+              <div className="rounded-3xl border border-surface-700 bg-surface-900 p-3 text-sm text-ink-300">
+                <p className="text-ink-50 font-semibold">Top category</p>
+                <p className="mt-1 text-2xl text-sage-300">{loading ? "—" : topCategory}</p>
+              </div>
+              <div className="rounded-3xl border border-surface-700 bg-surface-900 p-3 text-sm text-ink-300">
+                <p className="text-ink-50 font-semibold">Avg per category</p>
+                <p className="mt-1 text-2xl text-sage-300">{loading ? "—" : averageAssets}</p>
+              </div>
+            </div>
+          </div>
+
           {loading ? (
-            <div className="h-64 bg-surface-800 rounded-lg animate-pulse" />
-          ) : data?.chart?.byCategory?.length ? (
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={data.chart.byCategory}>
+            <div className="h-72 bg-surface-800 rounded-lg animate-pulse" />
+          ) : categoryData.length ? (
+            <ResponsiveContainer width="100%" height={320}>
+              <LineChart data={categoryData} margin={{ top: 10, right: 20, left: -10, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#232830" vertical={false} />
-                <XAxis dataKey="name" stroke="#8B9188" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="#8B9188" fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
-                <Tooltip
-                  contentStyle={{ background: "#181C20", border: "1px solid #232830", borderRadius: 8, fontSize: 13 }}
-                  cursor={{ fill: "#181C20" }}
+                <XAxis
+                  dataKey="name"
+                  stroke="#8B9188"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                  interval={0}
+                  tick={{ fill: "#A6ADBA" }}
                 />
-                <Bar dataKey="count" fill="#8FA073" radius={[6, 6, 0, 0]} />
-              </BarChart>
+                <YAxis
+                  stroke="#8B9188"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                  allowDecimals={false}
+                  tick={{ fill: "#A6ADBA" }}
+                />
+                <Tooltip
+                  contentStyle={{ background: "#181C20", border: "1px solid #232830", borderRadius: 10, fontSize: 13 }}
+                  formatter={(value) => [`${value} assets`, "Count"]}
+                  labelStyle={{ color: "#E2E8F0" }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="count"
+                  stroke="#8FA073"
+                  strokeWidth={3}
+                  dot={{ r: 4, stroke: "#8FA073", strokeWidth: 2, fill: "#111827" }}
+                  activeDot={{ r: 6, fill: "#A9F0C1" }}
+                />
+              </LineChart>
             </ResponsiveContainer>
           ) : (
-            <EmptyState title="No asset data yet" subtitle="Register your first asset to see category breakdowns here." />
+            <EmptyState title="No asset data yet" subtitle="Register your first asset to see category trends here." />
           )}
         </div>
 

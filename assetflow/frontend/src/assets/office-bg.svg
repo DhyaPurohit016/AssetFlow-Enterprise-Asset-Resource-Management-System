@@ -1,0 +1,42 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1220" />
+      <stop offset="100%" stop-color="#0F1724" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4ADE80" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.08" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)" />
+  <circle cx="260" cy="160" r="120" fill="url(#glow)" />
+  <circle cx="1400" cy="220" r="90" fill="#16283b" opacity="0.35" />
+
+  <g opacity="0.16">
+    <rect x="80" y="460" width="340" height="280" rx="28" fill="#FFFFFF" />
+    <rect x="130" y="520" width="230" height="18" rx="8" fill="#0B1724" />
+    <rect x="130" y="560" width="180" height="14" rx="7" fill="#0B1724" />
+    <rect x="130" y="594" width="160" height="14" rx="7" fill="#0B1724" />
+  </g>
+
+  <g opacity="0.26">
+    <rect x="920" y="380" width="460" height="360" rx="34" fill="#FFFFFF" />
+    <rect x="980" y="450" width="320" height="22" rx="11" fill="#0C1A2D" />
+    <rect x="980" y="490" width="280" height="16" rx="8" fill="#0C1A2D" />
+    <rect x="980" y="528" width="260" height="16" rx="8" fill="#0C1A2D" />
+    <rect x="980" y="566" width="220" height="16" rx="8" fill="#0C1A2D" />
+    <rect x="980" y="604" width="300" height="16" rx="8" fill="#0C1A2D" />
+  </g>
+
+  <g opacity="0.18">
+    <rect x="500" y="520" width="520" height="220" rx="26" fill="#FFFFFF" />
+    <rect x="560" y="580" width="120" height="14" rx="7" fill="#0B1724" />
+    <rect x="560" y="620" width="180" height="14" rx="7" fill="#0B1724" />
+    <rect x="560" y="660" width="420" height="14" rx="7" fill="#0B1724" />
+  </g>
+
+  <path d="M330 530c0-22 18-40 40-40h120c22 0 40 18 40 40v220c0 22-18 40-40 40H370c-22 0-40-18-40-40V530Z" fill="#FFFFFF" opacity="0.12" />
+  <path d="M1080 220h360v220h-360z" fill="#FFFFFF" opacity="0.1" />
+  <path d="M260 300h420v220H260z" fill="#FFFFFF" opacity="0.08" />
+</svg>

@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Building2, Boxes, ArrowLeftRight, CalendarClock,
-  Wrench, ClipboardCheck, BarChart3, Bell,
+  Wrench, ClipboardCheck, BarChart3, Bell, HelpCircle,
 } from "lucide-react";
 
 const NAV = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/organization", label: "Organization Setup", icon: Building2 },
+  { to: "/assistant", label: "AI Assistant", icon: HelpCircle },
   { to: "/assets", label: "Assets", icon: Boxes },
   { to: "/allocation", label: "Allocation & Transfer", icon: ArrowLeftRight },
   { to: "/booking", label: "Resource Booking", icon: CalendarClock },
@@ -33,10 +34,9 @@ export default function Sidebar() {
             to={to}
             end={end}
             className={({ isActive }) =>
-              `flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
-                isActive
-                  ? "bg-sage-900 text-sage-400 font-medium"
-                  : "text-ink-400 hover:text-ink-50 hover:bg-surface-800"
+              `flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${isActive
+                ? "bg-sage-900 text-sage-400 font-medium"
+                : "text-ink-400 hover:text-ink-50 hover:bg-surface-800"
               }`
             }
           >

@@ -4,11 +4,12 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
 const TITLES = {
-  "/": "Dashboard",
+  "/dashboard": "Dashboard",
   "/organization": "Organization Setup",
   "/assets": "Assets",
   "/assets/register": "Register Asset",
   "/allocation": "Allocation & Transfer",
+  "/assistant": "AI Assistant",
   "/booking": "Resource Booking",
   "/maintenance": "Maintenance",
   "/audit": "Audit",

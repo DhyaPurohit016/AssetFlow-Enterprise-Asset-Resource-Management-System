@@ -3,6 +3,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ComingSoon from "./components/ComingSoon";
 
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -12,12 +13,14 @@ import Assets from "./pages/Assets";
 import RegisterAsset from "./pages/RegisterAsset";
 import AssetDetail from "./pages/AssetDetail";
 import Allocation from "./pages/Allocation";
+import Assistant from "./pages/Assistant";
 import Maintenance from "./pages/Maintenance";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -29,12 +32,13 @@ export default function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/organization" element={<Organization />} />
         <Route path="/assets" element={<Assets />} />
         <Route path="/assets/register" element={<RegisterAsset />} />
         <Route path="/assets/:id" element={<AssetDetail />} />
         <Route path="/allocation" element={<Allocation />} />
+        <Route path="/assistant" element={<Assistant />} />
         <Route path="/maintenance" element={<Maintenance />} />
         <Route
           path="/booking"

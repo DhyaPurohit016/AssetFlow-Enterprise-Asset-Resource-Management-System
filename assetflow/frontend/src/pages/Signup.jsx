@@ -16,19 +16,21 @@ export default function Signup() {
     try {
       await signup(values.name, values.email, values.password);
       toast.success("Account created");
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setServerError(err.response?.data?.message || "Something went wrong. Try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-surface-950 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('../assets/office-bg.svg')] bg-cover bg-center opacity-15" />
+      <div className="absolute inset-0 bg-gradient-to-br from-surface-950/95 via-surface-950/80 to-surface-950/95" />
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="w-full max-w-sm"
+        className="relative w-full max-w-sm"
       >
         <div className="flex flex-col items-center mb-8">
           <div className="w-10 h-10 rounded-xl bg-sage-500 flex items-center justify-center text-surface-950 font-display font-bold mb-3">
@@ -38,7 +40,7 @@ export default function Signup() {
           <p className="text-xs text-ink-400 mt-1">Signup creates an Employee account. Admins assign roles later.</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="card p-6 space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-6 space-y-4">
           {serverError && (
             <div className="text-sm bg-maroon-900 text-maroon-400 rounded-lg px-3 py-2">{serverError}</div>
           )}
