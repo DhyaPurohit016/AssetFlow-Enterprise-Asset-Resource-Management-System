@@ -10,6 +10,7 @@ export default {
           900: "#172033", // cards
           800: "#1E293B", // hover/elevated
           700: "#334155", // borders
+          600: "#475569", // stronger borders and form controls
         },
         sage: {
           400: "#38BDF8", // primary accent
