@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediAsset Flow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="brand">
+        <div class="brand-mark">AF</div>
+        <div>
+          <p class="eyebrow">AssetFlow</p>
+          <h1>MediAsset Flow</h1>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-screen="dashboard">Dashboard</button>
+        <button class="nav-item" data-screen="organization">Organization</button>
+        <button class="nav-item" data-screen="assets">Assets</button>
+        <button class="nav-item" data-screen="allocation">Allocation</button>
+        <button class="nav-item" data-screen="booking">Booking</button>
+        <button class="nav-item" data-screen="maintenance">Maintenance</button>
+        <button class="nav-item" data-screen="audit">Audit</button>
+        <button class="nav-item" data-screen="reports">Reports</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        ICU readiness: <strong>82%</strong>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Hospital Critical Asset Management</p>
+          <h2 id="screenTitle">Dashboard</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" aria-label="Search">S</button>
+          <button class="icon-button" aria-label="Notifications">N</button>
+          <button class="primary-button" id="quickAction">Register Asset</button>
+        </div>
+      </header>
+
+      <section class="alert-strip">
+        <strong>Critical alert:</strong>
+        Ventilator AF-0001 is requested by Emergency while allocated to ICU. Transfer approval required.
+      </section>
+
+      <section class="screen active" id="dashboard">
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="two-column">
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Critical Asset Availability</h3>
+              <button class="ghost-button">View all</button>
+            </div>
+            <div class="readiness-list" id="readinessList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <h3>Recent Activity</h3>
+              <button class="ghost-button">Export</button>
+            </div>
+            <div class="activity-list" id="activityList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" id="organization">
+        <div class="tabs" role="tablist">
+          <button class="tab active">Departments</button>
+          <button class="tab">Categories</button>
+          <button class="tab">Employees</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Department</th>
+                <th>Head</th>
+                <th>Critical Assets</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="departmentRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="screen" id="assets">
+        <div class="toolbar">
+          <input id="assetSearch" type="search" placeholder="Search by tag, serial, QR code, category, or location" />
+          <button class="primary-button">Add Asset</button>
+        </div>
+        <div class="asset-grid" id="assetGrid"></div>
+      </section>
+
+      <section class="screen" id="allocation">
+        <div class="two-column">
+          <section class="panel">
+            <h3>Double Allocation Block</h3>
+            <div class="conflict-box">
+              <p class="tag">AF-0001 - Ventilator</p>
+              <h4>Already allocated to ICU</h4>
+              <p>Emergency cannot directly allocate this asset. Submit a transfer request for approval.</p>
+              <button class="primary-button">Submit Transfer Request</button>
+            </div>
+          </section>
+          <section class="panel">
+            <h3>Allocation History</h3>
+            <div class="timeline" id="allocationTimeline"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" id="booking">
+        <div class="booking-layout">
+          <section class="panel">
+            <h3>Resource Calendar</h3>
+            <div class="calendar-list" id="bookingSlots"></div>
+          </section>
+          <section class="panel">
+            <h3>Book Shared Resource</h3>
+            <form class="form-grid">
+              <label>Resource<input value="Ambulance AF-0200" /></label>
+              <label>Department<input value="Emergency" /></label>
+              <label>Start<input value="09:30" /></label>
+              <label>End<input value="10:30" /></label>
+              <button class="primary-button" type="button">Check Availability</button>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" id="maintenance">
+        <div class="kanban" id="maintenanceBoard"></div>
+      </section>
+
+      <section class="screen" id="audit">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Q3 Audit</p>
+              <h3>ICU and Emergency Department</h3>
+            </div>
+            <button class="primary-button">Close Audit Cycle</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Expected Location</th>
+                  <th>Auditor Status</th>
+                  <th>System Action</th>
+                </tr>
+              </thead>
+              <tbody id="auditRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="reports">
+        <div class="report-grid">
+          <section class="panel">
+            <h3>Most Used Assets</h3>
+            <div id="mostUsedList"></div>
+          </section>
+          <section class="panel">
+            <h3>Due For Maintenance</h3>
+            <div id="maintenanceDueList"></div>
+          </section>
+          <section class="panel wide">
+            <h3>Department Readiness</h3>
+            <div class="bar-chart" id="readinessChart"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
