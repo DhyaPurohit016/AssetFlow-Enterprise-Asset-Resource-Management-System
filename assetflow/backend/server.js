@@ -4,6 +4,7 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import connectDB from "./config/db.js";
+import bootstrapDemoUsers from "./utils/bootstrapDemoUsers.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 
 import authRoutes from "./routes/authRoutes.js";
@@ -14,7 +15,6 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", credentials: true }));
@@ -49,4 +49,15 @@ io.on("connection", (socket) => {
 app.set("io", io);
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`AssetFlow API running on port ${PORT}`));
+
+const startServer = async () => {
+  await connectDB();
+
+  if ((process.env.NODE_ENV || "development") !== "production") {
+    await bootstrapDemoUsers();
+  }
+
+  server.listen(PORT, () => console.log(`AssetFlow API running on port ${PORT}`));
+};
+
+startServer();
