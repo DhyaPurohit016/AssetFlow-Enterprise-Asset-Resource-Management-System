@@ -7,6 +7,8 @@ import Asset from "../models/Asset.js";
 import Allocation from "../models/Allocation.js";
 import Maintenance from "../models/Maintenance.js";
 import ActivityLog from "../models/ActivityLog.js";
+import Booking from "../models/Booking.js";
+import Notification from "../models/Notification.js";
 
 
 dotenv.config();
@@ -19,6 +21,7 @@ const run = async () => {
   await Promise.all([
     User.deleteMany(), Department.deleteMany(), Category.deleteMany(),
     Asset.deleteMany(), Allocation.deleteMany(), Maintenance.deleteMany(), ActivityLog.deleteMany(),
+    Booking.deleteMany(), Notification.deleteMany(),
   ]);
 
   console.log("Seeding departments...");
@@ -103,6 +106,46 @@ const run = async () => {
     asset: monitor1._id, raisedBy: priya._id, issue: "Screen has a dead pixel cluster",
     priority: "Low", status: "Pending",
   });
+
+  console.log("Seeding bookings...");
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const nextWeek = new Date();
+  nextWeek.setDate(nextWeek.getDate() + 7);
+
+  await Booking.create([
+    {
+      resource: projector1._id, bookedBy: priya._id,
+      startDate: tomorrow, endDate: new Date(tomorrow.getTime() + 2 * 60 * 60 * 1000),
+      purpose: "Team Presentation",
+      status: "Approved", approvedBy: manager._id,
+    },
+    {
+      resource: monitor1._id, bookedBy: arjun._id,
+      startDate: nextWeek, endDate: new Date(nextWeek.getTime() + 4 * 60 * 60 * 1000),
+      purpose: "Design Workshop",
+      status: "Pending",
+    },
+  ]);
+
+  console.log("Seeding notifications...");
+  await Notification.create([
+    {
+      recipient: priya._id, type: "booking", title: "Booking Approved",
+      message: "Your booking for Projector AF-0062 has been approved",
+      actionUrl: "/booking",
+    },
+    {
+      recipient: arjun._id, type: "asset_update", title: "Asset Allocation",
+      message: "You have been allocated Laptop AF-0114",
+      actionUrl: "/allocation",
+    },
+    {
+      recipient: manager._id, type: "maintenance", title: "Maintenance Request",
+      message: "New maintenance request: Projector AF-0062 - Bulb flickering",
+      actionUrl: "/maintenance",
+    },
+  ]);
 
   console.log("Seeding activity feed...");
   await ActivityLog.create([

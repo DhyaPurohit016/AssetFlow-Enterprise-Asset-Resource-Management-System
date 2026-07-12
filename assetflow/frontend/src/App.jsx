@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ComingSoon from "./components/ComingSoon";
+import { SocketProvider } from "./context/SocketContext";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,50 +15,44 @@ import AssetDetail from "./pages/AssetDetail";
 import Allocation from "./pages/Allocation";
 import Assistant from "./pages/Assistant";
 import Maintenance from "./pages/Maintenance";
+import Booking from "./pages/Booking";
+import Audit from "./pages/Audit";
+import Reports from "./pages/Reports";
+import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+    <SocketProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      <Route
-        element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/organization" element={<Organization />} />
-        <Route path="/assets" element={<Assets />} />
-        <Route path="/assets/register" element={<RegisterAsset />} />
-        <Route path="/assets/:id" element={<AssetDetail />} />
-        <Route path="/allocation" element={<Allocation />} />
-        <Route path="/assistant" element={<Assistant />} />
-        <Route path="/maintenance" element={<Maintenance />} />
         <Route
-          path="/booking"
-          element={<ComingSoon title="Resource Booking" description="Calendar and timeline booking with overlap detection is next on the roadmap for this build." />}
-        />
-        <Route
-          path="/audit"
-          element={<ComingSoon title="Asset Audit" description="Audit cycles, checklists, and discrepancy reports are next on the roadmap for this build." />}
-        />
-        <Route
-          path="/reports"
-          element={<ComingSoon title="Reports & Analytics" description="Utilization, maintenance trend, and export-ready reports are next on the roadmap for this build." />}
-        />
-        <Route
-          path="/notifications"
-          element={<ComingSoon title="Notifications" description="Real-time notifications are wired up on the backend via Socket.io — the feed UI is next." />}
-        />
-      </Route>
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/organization" element={<Organization />} />
+          <Route path="/assets" element={<Assets />} />
+          <Route path="/assets/register" element={<RegisterAsset />} />
+          <Route path="/assets/:id" element={<AssetDetail />} />
+          <Route path="/allocation" element={<Allocation />} />
+          <Route path="/assistant" element={<Assistant />} />
+          <Route path="/maintenance" element={<Maintenance />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/audit" element={<Audit />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/notifications" element={<Notifications />} />
+        </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </SocketProvider>
   );
 }

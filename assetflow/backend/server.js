@@ -13,6 +13,9 @@ import allocationRoutes from "./routes/allocationRoutes.js";
 import maintenanceRoutes from "./routes/maintenanceRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import departmentRoutes from "./routes/departmentRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+import reportsRoutes from "./routes/reportsRoutes.js";
 
 dotenv.config();
 
@@ -29,6 +32,9 @@ app.use("/api/allocations", allocationRoutes);
 app.use("/api/maintenance", maintenanceRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/org", departmentRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/reports", reportsRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -40,6 +46,40 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log(`Socket connected: ${socket.id}`);
+
+  // Join user room for personal notifications
+  socket.on("join", (userId) => {
+    socket.join(`user:${userId}`);
+    console.log(`User ${userId} joined personal room`);
+  });
+
+  // Broadcast booking events
+  socket.on("booking:created", (bookingData) => {
+    io.emit("booking:updated", bookingData);
+  });
+
+  socket.on("booking:status_changed", (bookingData) => {
+    io.emit("booking:updated", bookingData);
+  });
+
+  // Broadcast notification events
+  socket.on("notification:send", (data) => {
+    io.to(`user:${data.recipientId}`).emit("notification:new", data);
+  });
+
+  // Real-time dashboard updates
+  socket.on("allocation:updated", (data) => {
+    io.emit("dashboard:update", { type: "allocation", data });
+  });
+
+  socket.on("maintenance:updated", (data) => {
+    io.emit("dashboard:update", { type: "maintenance", data });
+  });
+
+  socket.on("asset:updated", (data) => {
+    io.emit("dashboard:update", { type: "asset", data });
+  });
+
   socket.on("disconnect", () => console.log(`Socket disconnected: ${socket.id}`));
 });
 
