@@ -6,29 +6,27 @@ export default {
     extend: {
       colors: {
         surface: {
-          950: "#201e47", // page background
-          900: "#7aace9c0", // card background
-          800: "#181C20", // elevated card / hover
-          700: "#232830", // borders
-          600: "#2E353F",
+          950: "#0F172A", // page
+          900: "#172033", // cards
+          800: "#1E293B", // hover/elevated
+          700: "#334155", // borders
         },
         sage: {
-          400: "#A9B98E", // primary accent - matches wireframe olive tone
-          500: "#8FA073",
-          600: "#748757",
-          900: "#2B331F",
+          400: "#38BDF8", // primary accent
+          500: "#0EA5E9",
+          600: "#0284C7",
         },
         maroon: {
-          400: "#C97575",
-          500: "#A24B4B", // alert/conflict tone from wireframes
-          900: "#3A1616",
+          400: "#FCA5A5",
+          500: "#EF4444",
+          900: "#450A0A",
         },
         ink: {
-          50: "#F4F5F2",
-          200: "#C7CCC3",
-          400: "#8B9188",
-          600: "#5B615C",
-        },
+          50: "#F8FAFC",
+          200: "#CBD5E1",
+          400: "#94A3B8",
+          600: "#64748B",
+        }
       },
       fontFamily: {
         display: ["'Space Grotesk'", "sans-serif"],
