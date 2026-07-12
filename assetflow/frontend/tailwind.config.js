@@ -6,8 +6,8 @@ export default {
     extend: {
       colors: {
         surface: {
-          950: "#0A0C0E", // page background
-          900: "#111417", // card background
+          950: "#1dd4f4", // page background
+          900: "#0b70eac0", // card background
           800: "#181C20", // elevated card / hover
           700: "#232830", // borders
           600: "#2E353F",
