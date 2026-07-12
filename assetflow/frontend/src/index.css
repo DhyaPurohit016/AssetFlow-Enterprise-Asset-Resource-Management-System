@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-surface-950 text-ink-50 font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-sage-500/30;
+  }
+  *:focus-visible {
+    outline: 2px solid theme('colors.sage.400');
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-900 border border-surface-700 rounded-xl2 shadow-card;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-sage-500 text-surface-950 font-medium px-4 py-2 text-sm transition-colors hover:bg-sage-400 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-surface-600 text-ink-50 font-medium px-4 py-2 text-sm transition-colors hover:bg-surface-800;
+  }
+  .input {
+    @apply w-full bg-surface-800 border border-surface-600 rounded-lg px-3 py-2 text-sm text-ink-50 placeholder:text-ink-600 focus:border-sage-400 transition-colors;
+  }
+  .label {
+    @apply text-xs font-medium text-ink-400 mb-1.5 block;
+  }
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+/* thin scrollbars for kanban / tables */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: theme('colors.surface.700'); border-radius: 8px; }
